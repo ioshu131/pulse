@@ -1,1 +1,104 @@
-
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Пульс — новости</title>
+<style>
+:root{--red:#d71920;--ink:#171717;--muted:#6b7280;--line:#e5e7eb;--bg:#f4f5f7}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}.top{background:#fff;border-bottom:1px solid var(--line)}.wrap{max-width:1180px;margin:auto;padding:0 20px}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:30px;letter-spacing:-1.5px}.logo{display:grid;place-items:center;background:var(--red);color:white;width:44px;height:44px;border-radius:10px;font-size:25px;font-weight:900}.tag{color:var(--muted);font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{border:0;border-radius:7px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--red);color:white}.btn.secondary,button.secondary{background:#f0f1f3;color:#222;border:1px solid var(--line)}button:hover,.btn:hover{filter:brightness(.95)}
+nav{background:var(--ink);color:white}.navinner{display:flex;gap:24px;overflow:auto;padding:12px 0;font-size:14px;font-weight:700;white-space:nowrap}.navinner a:hover{color:#ffb5b7}
+.breaking{background:#fff2f2;border-bottom:1px solid #ffd4d5;color:#9b1016}.breaking .wrap{display:flex;gap:12px;padding-top:10px;padding-bottom:10px;font-size:14px}.breaking strong{color:var(--red)}
+main{padding:25px 0 50px}.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:22px}.panel{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden}.hero{min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.02)),linear-gradient(135deg,#8b1017,#e04449 55%,#242424);color:white}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:800;color:#ffd0d1}.hero h1{font-size:clamp(28px,4vw,42px);line-height:1.08;max-width:720px;margin:10px 0}.meta{font-size:12px;opacity:.8}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:24px 0 12px}.sectionhead h2{margin:0;font-size:22px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.story{padding:17px}.story h3{margin:7px 0;font-size:18px;line-height:1.25}.story p{margin:0 0 12px;color:#555;font-size:14px}.category{font-size:11px;color:var(--red);font-weight:900;text-transform:uppercase;letter-spacing:.5px}.storyfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}.sidebar{padding:20px}.sidebar h2{font-size:20px;margin:0 0 14px}.trend{padding:12px 0;border-top:1px solid var(--line)}.trend b{color:var(--red);margin-right:8px}.trend p{margin:0;font-weight:700;font-size:14px}.muted{color:var(--muted)}.editor{padding:20px;margin-top:22px}.editor h2{margin:0 0 14px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:800;color:#555}input,select,textarea{font:inherit;border:1px solid #d7dbe0;border-radius:7px;padding:10px;width:100%;background:white}textarea{min-height:110px;resize:vertical}.formactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.status{font-size:13px;color:var(--muted);margin-top:8px}.hidden{display:none!important}.localnote{font-size:12px;color:#777;margin-top:12px}.empty{padding:25px;text-align:center;color:var(--muted)}footer{background:#171717;color:#ddd;padding:25px 0;font-size:13px}
+.modalback{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:20px;z-index:10}.modal{width:min(420px,100%);background:white;padding:24px;border-radius:12px}.modal h2{margin-top:0}.modal .field{margin:12px 0}.close{float:right;background:#eee;color:#222;padding:5px 9px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.mast{align-items:flex-start;flex-direction:column}.cards{grid-template-columns:1fr}.hero{min-height:280px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.wrap{padding:0 14px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap mast">
+  <a class="brand" href="#"><span class="logo">П</span><span>ПУЛЬС<span style="color:var(--red)">.</span><div class="tag">Новости без паузы</div></span></a>
+  <div class="tools"><button class="secondary" id="loginBtn">Войти в редакцию</button><button id="addBtn">＋ Добавить новость</button></div>
+</div></header>
+<nav><div class="wrap navinner"><a href="#latest">Главное</a><a href="#latest">Россия</a><a href="#latest">Мир</a><a href="#latest">Экономика</a><a href="#latest">Общество</a><a href="#latest">Технологии</a><a href="#latest">Спорт</a></div></nav>
+<div class="breaking"><div class="wrap"><strong>ПУЛЬС / СЕЙЧАС</strong><span id="ticker">Главные события — в одной новостной ленте</span></div></div>
+<main class="wrap">
+<div class="layout">
+ <section>
+  <article class="panel hero" id="hero">
+   <div class="kicker">Главная тема</div><h1>Пульс новостей: главные события дня</h1>
+   <div class="meta">Редакция «Пульс» · Обновлено сегодня</div>
+  </article>
+  <div class="sectionhead" id="latest"><h2>Последние новости</h2><span class="muted" id="count">0 материалов</span></div>
+  <div class="cards" id="newsList"></div>
+  <section class="panel editor hidden" id="editor">
+   <h2 id="editorTitle">Добавить новость</h2>
+   <form id="newsForm">
+    <div class="formgrid">
+     <div class="field"><label for="category">РУБРИКА</label><select id="category"><option>Россия</option><option>Мир</option><option>Экономика</option><option>Общество</option><option>Технологии</option><option>Спорт</option></select></div>
+     <div class="field"><label for="author">АВТОР</label><input id="author" placeholder="Редакция «Пульс»" value="Редакция «Пульс»"></div>
+     <div class="field full"><label for="title">ЗАГОЛОВОК</label><input id="title" required maxlength="180" placeholder="Заголовок новости"></div>
+     <div class="field full"><label for="summary">КРАТКОЕ ОПИСАНИЕ</label><input id="summary" required maxlength="300" placeholder="Коротко о главном"></div>
+     <div class="field full"><label for="bodyText">ТЕКСТ МАТЕРИАЛА</label><textarea id="bodyText" required placeholder="Полный текст новости..."></textarea></div>
+    </div>
+    <div class="formactions"><button type="submit">Опубликовать</button><button type="button" class="secondary" id="cancelEdit">Отмена</button></div>
+    <div class="status" id="formStatus"></div>
+   </form>
+   <div class="localnote">Материалы сохраняются только в этом браузере на этом устройстве (localStorage). Это демонстрационная версия без сервера и базы данных.</div>
+  </section>
+ </section>
+ <aside>
+  <div class="panel sidebar"><h2>В центре внимания</h2><div id="trends">
+   <div class="trend"><p><b>01</b> Что важно знать сегодня</p></div><div class="trend"><p><b>02</b> Новые технологии и общество</p></div><div class="trend"><p><b>03</b> Ключевые события недели</p></div>
+  </div></div>
+  <div class="panel sidebar" style="margin-top:16px"><h2>О проекте</h2><p class="muted" style="font-size:14px">«Пульс» — демонстрационный новостной сайт с собственным оформлением. Здесь можно создавать и редактировать локальные публикации.</p><button class="secondary" id="exportBtn" style="width:100%">Экспортировать новости</button><button class="secondary" id="importBtn" style="width:100%;margin-top:8px">Импортировать JSON</button><input id="importFile" type="file" accept="application/json,.json" class="hidden"><div class="localnote">Для настоящих новостей подключите проверенный RSS/API-источник. Этот HTML-файл не загружает реальные новости автоматически.</div></div>
+ </aside>
+</div>
+</main>
+<footer><div class="wrap">© <span id="year"></span> ПУЛЬС — демонстрационный проект. Название, логотип и дизайн самостоятельные.</div></footer>
+<div id="loginModal" class="modalback hidden"><div class="modal"><button class="close" id="closeLogin">✕</button><h2>Вход в редакцию</h2><p class="muted" style="font-size:14px">Локальный демонстрационный вход. Не используйте настоящие пароли.</p><div class="field"><label for="username">ЛОГИН</label><input id="username" autocomplete="username" placeholder="editor"></div><div class="field"><label for="password">ПАРОЛЬ</label><input id="password" type="password" autocomplete="current-password" placeholder="pulse123"></div><button id="doLogin" style="width:100%">Войти</button><div class="status" id="loginStatus">Демо-доступ: editor / pulse123</div></div></div>
+<script>
+const STORAGE_KEY='pulseNewsArticles_v1';
+const DEMO=[
+{id:'demo1',category:'Россия',author:'Редакция «Пульс»',title:'Пульс новостей: следите за главными событиями',summary:'На этой странице собраны публикации редакции и материалы, которые вы добавите самостоятельно.',body:'Добро пожаловать на демонстрационный сайт «Пульс». Добавляйте новости через редактор, меняйте заголовки и экспортируйте материалы в JSON. Это пример интерфейса, а не источник подтверждённых новостей.',date:new Date().toISOString()},
+{id:'demo2',category:'Технологии',author:'Редакция «Пульс»',title:'Как меняются цифровые медиа',summary:'Онлайн-издания всё чаще объединяют короткие обновления, аналитику и мультимедийные форматы.',body:'Цифровые медиа развиваются благодаря мобильным форматам, интерактивным материалам и удобной навигации. Проверяйте факты и указывайте первоисточники при публикации.',date:new Date(Date.now()-3600000).toISOString()},
+{id:'demo3',category:'Общество',author:'Редакция «Пульс»',title:'Информационная грамотность — важный навык',summary:'Перед тем как делиться сообщением, стоит проверить источник, дату и подтверждения.',body:'Сравнивайте несколько независимых источников, отделяйте факты от мнений и не публикуйте неподтверждённые утверждения как достоверные новости.',date:new Date(Date.now()-7200000).toISOString()}
+];
+let articles=loadArticles(),editingId=null,isEditor=false;
+function loadArticles(){try{const raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):DEMO.slice()}catch(e){return DEMO.slice()}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(articles));return true}catch(e){alert('Не удалось сохранить. Возможно, браузер запрещает локальное хранилище.');return false}}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmt(d){return new Date(d).toLocaleString('ru-RU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
+function render(){
+ const list=document.getElementById('newsList');document.getElementById('count').textContent=articles.length+' материалов';
+ const sorted=[...articles].sort((a,b)=>new Date(b.date)-new Date(a.date));
+ const hero=sorted[0];
+ if(hero)document.getElementById('hero').innerHTML=`<div class="kicker">${esc(hero.category)}</div><h1>${esc(hero.title)}</h1><div style="max-width:700px;margin-bottom:14px">${esc(hero.summary)}</div><div class="meta">${esc(hero.author||'Редакция')} · ${fmt(hero.date)}</div>`;
+ document.getElementById('ticker').textContent=hero?hero.title:'Главные события — в одной новостной ленте';
+ document.getElementById('trends').innerHTML=sorted.slice(0,5).map((a,i)=>`<div class="trend"><p><b>${String(i+1).padStart(2,'0')}</b> ${esc(a.title)}</p><div class="muted" style="font-size:12px;margin:5px 0 0 28px">${esc(a.category)} · ${fmt(a.date)}</div></div>`).join('');
+ list.innerHTML=sorted.slice(1).map(a=>`<article class="panel story"><div class="category">${esc(a.category)}</div><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p><div class="storyfoot"><span>${fmt(a.date)}</span><button class="secondary" onclick="readArticle('${esc(a.id)}')">Читать</button></div>${isEditor?`<div class="formactions"><button class="secondary" onclick="editArticle('${esc(a.id)}')">Изменить</button><button class="secondary" onclick="deleteArticle('${esc(a.id)}')">Удалить</button></div>`:''}</article>`).join('')||'<div class="panel empty">Пока нет других публикаций.</div>';
+ document.getElementById('loginBtn').textContent=isEditor?'Редактор: выйти':'Войти в редакцию';
+ document.getElementById('addBtn').classList.toggle('hidden',!isEditor);
+}
+function readArticle(id){const a=articles.find(x=>x.id===id);if(!a)return;alert(a.title+'\\n\\n'+a.summary+'\\n\\n'+a.body+'\\n\\n'+(a.author||'Редакция')+' · '+fmt(a.date))}
+function resetForm(){editingId=null;document.getElementById('newsForm').reset();document.getElementById('author').value='Редакция «Пульс»';document.getElementById('editorTitle').textContent='Добавить новость';document.getElementById('formStatus').textContent='';}
+function openEditor(){if(!isEditor){document.getElementById('loginModal').classList.remove('hidden');return}resetForm();document.getElementById('editor').classList.remove('hidden');document.getElementById('editor').scrollIntoView({behavior:'smooth'})}
+function editArticle(id){const a=articles.find(x=>x.id===id);if(!a)return;editingId=id;document.getElementById('category').value=a.category;document.getElementById('author').value=a.author||'';document.getElementById('title').value=a.title;document.getElementById('summary').value=a.summary;document.getElementById('bodyText').value=a.body;document.getElementById('editorTitle').textContent='Редактировать новость';document.getElementById('editor').classList.remove('hidden');document.getElementById('editor').scrollIntoView({behavior:'smooth'})}
+function deleteArticle(id){if(!isEditor)return;if(confirm('Удалить эту публикацию?')){articles=articles.filter(a=>a.id!==id);save();render()}}
+document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();if(!isEditor)return;const item={id:editingId||('n'+Date.now()),category:document.getElementById('category').value,author:document.getElementById('author').value.trim()||'Редакция «Пульс»',title:document.getElementById('title').value.trim(),summary:document.getElementById('summary').value.trim(),body:document.getElementById('bodyText').value.trim(),date:new Date().toISOString()};if(editingId){articles=articles.map(a=>a.id===editingId?item:a)}else articles.push(item);save();render();resetForm();document.getElementById('editor').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('loginBtn').addEventListener('click',()=>{if(isEditor){isEditor=false;document.getElementById('editor').classList.add('hidden');render()}else document.getElementById('loginModal').classList.remove('hidden')});
+document.getElementById('addBtn').addEventListener('click',openEditor);
+document.getElementById('closeLogin').addEventListener('click',()=>document.getElementById('loginModal').classList.add('hidden'));
+document.getElementById('cancelEdit').addEventListener('click',()=>{document.getElementById('editor').classList.add('hidden');resetForm()});
+document.getElementById('doLogin').addEventListener('click',()=>{const u=document.getElementById('username').value,p=document.getElementById('password').value;if(u==='editor'&&p==='pulse123'){isEditor=true;document.getElementById('loginModal').classList.add('hidden');document.getElementById('loginStatus').textContent='';render()}else document.getElementById('loginStatus').textContent='Неверный логин или пароль.'});
+document.getElementById('loginModal').addEventListener('click',e=>{if(e.target.id==='loginModal')e.currentTarget.classList.add('hidden')});
+document.getElementById('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(articles,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pulse-news.json';a.click();URL.revokeObjectURL(a.href)});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(!Array.isArray(parsed)||!parsed.every(a=>a.title&&a.summary&&a.body))throw Error();articles=parsed;save();render();alert('Новости импортированы.')}catch(err){alert('Не удалось импортировать файл. Нужен JSON-массив новостей.')}e.target.value=''});
+document.getElementById('year').textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
